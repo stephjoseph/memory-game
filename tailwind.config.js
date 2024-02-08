@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -12,6 +13,9 @@ export default {
         "steel-blue": "#7191A5",
         "sky-blue": "#6395B8",
         "snow-white": "#FCFCFC",
+      },
+      fontFamily: {
+        sans: ['"Atkinson Hyperlegible"', ...defaultTheme.fontFamily.sans],
       },
     },
   },
