@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./routes/route";
+import Root from "./routes/root";
 import Home from "./routes/Home";
 import Game from "./routes/Game";
 
