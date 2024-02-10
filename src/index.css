@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 body {
-  @apply min-w-[300px] font-sans;
+  @apply w-full min-w-[300px] font-sans;
 }

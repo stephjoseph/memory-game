@@ -33,10 +33,19 @@ export const GameSettingsProvider: React.FC<GameSettingsProviderProps> = ({
   const [theme, setTheme] = useState<string>("numbers");
   const [gridSize, setGridSize] = useState<number>(4);
 
-  const updateNumberOfPlayers = (players: number) =>
+  const updateNumberOfPlayers = (players: number) => {
     setNumberOfPlayers(players);
-  const updateTheme = (selectedTheme: string) => setTheme(selectedTheme);
-  const updateGridSize = (size: number) => setGridSize(size);
+    console.log(numberOfPlayers);
+  };
+
+  const updateTheme = (selectedTheme: string) => {
+    setTheme(selectedTheme);
+    console.log(theme);
+  };
+  const updateGridSize = (size: number) => {
+    setGridSize(size);
+    console.log(gridSize);
+  };
 
   return (
     <GameSettingsContext.Provider
