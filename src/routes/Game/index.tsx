@@ -15,7 +15,6 @@ const Game: React.FC = () => {
   const [startTime, setStartTime] = useState<number>(0);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
-  // Generate random tiles based on grid size and theme
   useEffect(() => {
     const generateTiles = () => {
       const totalTiles = gridSize * gridSize;
@@ -32,7 +31,6 @@ const Game: React.FC = () => {
     generateTiles();
   }, [gridSize, theme]);
 
-  // Handle tile click
   const handleTileClick = (index: number) => {
     if (flippedTiles.length === 2 || matchedTiles.includes(index)) return;
 
@@ -48,7 +46,6 @@ const Game: React.FC = () => {
           return updatedScores;
         });
         setMoves((m) => m + 1);
-        // Reset flipped tiles and justMatchedTiles after a match
         setTimeout(() => {
           setFlippedTiles([]);
           setJustMatchedTiles([]);
@@ -58,77 +55,126 @@ const Game: React.FC = () => {
           setFlippedTiles([]);
           setTurn((turn + 1) % numberOfPlayers);
           setMoves((m) => m + 1);
-        }, 1000); // Reset flippedTiles and change turn after 1 second
+        }, 1000);
       }
+    }
+
+    // Start tracking time when the user makes the first move
+    if (startTime === 0) {
+      setStartTime(new Date().getTime());
     }
   };
 
   useEffect(() => {
     if (numberOfPlayers === 1) {
       if (matchedTiles.length === gridSize * gridSize) {
-        // Game over for solo play
-        // Calculate elapsed time
         const endTime = new Date().getTime();
         const totalTimeInSeconds = Math.floor((endTime - startTime) / 1000);
         setElapsedTime(totalTimeInSeconds);
-      } else if (matchedTiles.length === 0) {
-        // Start tracking time when the first move is made
-        setStartTime(new Date().getTime());
       }
     }
   }, [matchedTiles, gridSize, numberOfPlayers, startTime]);
 
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval>;
+    if (startTime !== 0 && elapsedTime < gridSize * gridSize) {
+      timer = setInterval(() => {
+        const currentTime = new Date().getTime();
+        const elapsed = Math.floor((currentTime - startTime) / 1000);
+        setElapsedTime(elapsed);
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [elapsedTime, startTime, gridSize]);
+
+  const formatElapsedTime = (timeInSeconds: number) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
   return (
-    <div>
-      <div>
-        {numberOfPlayers === 1 ? (
-          <>
-            <div>Moves: {moves}</div>
-            {startTime > 0 && <div>Time: {elapsedTime} seconds</div>}
-          </>
-        ) : (
-          <>
-            <div>Turn: Player {turn + 1}</div>
-            <div>
-              Scores:{" "}
-              {scores
-                .map((score, index) => `Player ${index + 1}: ${score}`)
-                .join(", ")}
-            </div>
-          </>
-        )}
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${gridSize}, 100px)`,
-          gap: "5px",
-        }}
-      >
-        {tiles.map((tile, index) => (
+    <>
+      <div className="mx-auto flex w-full min-w-[375px] max-w-[375px] flex-col gap-20 p-6">
+        <div className="flex w-full items-center justify-between">
+          <h1 className="text-[1.5rem] font-bold lowercase leading-[1.875rem] tracking-normal text-midnight-blue">
+            memory
+          </h1>
+          <button className="flex h-10 w-[4.875rem] items-center justify-center rounded-[26px] bg-orange-yellow text-center text-base font-bold leading-5 tracking-normal text-snow-white">
+            Menu
+          </button>
+        </div>
+        <div className="flex h-[500px] w-full min-w-[327px] flex-col justify-between">
           <div
-            style={{
-              width: "100px",
-              height: "100px",
-              backgroundColor: justMatchedTiles.includes(index)
-                ? "goldenrod"
-                : flippedTiles.includes(index) || matchedTiles.includes(index)
-                  ? "lightblue"
-                  : "gray",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => handleTileClick(index)}
+            className={`${
+              gridSize === 4
+                ? "grid-cols-4 gap-3"
+                : gridSize === 6
+                  ? "grid-cols-6 gap-[0.563rem]"
+                  : ""
+            } grid`}
           >
-            {flippedTiles.includes(index) || matchedTiles.includes(index)
-              ? tile
-              : ""}
+            {tiles.map((tile, index) => (
+              <div
+                className={`flex cursor-pointer items-center justify-center rounded-full font-bold tracking-normal text-snow-white transition-colors duration-300 ${
+                  justMatchedTiles.includes(index)
+                    ? "bg-orange-yellow"
+                    : flippedTiles.includes(index) ||
+                        matchedTiles.includes(index)
+                      ? "bg-light-steel-blue"
+                      : "bg-dark-slate-blue"
+                } ${
+                  gridSize === 6
+                    ? "h-[46.88px] w-[46.88px] text-[1.5rem] leading-[1.875rem]"
+                    : gridSize === 4
+                      ? "h-[72px] w-[72px] text-[2.5rem] leading-[3.125rem]"
+                      : ""
+                }`}
+                onClick={() => handleTileClick(index)}
+                key={index}
+              >
+                {flippedTiles.includes(index) || matchedTiles.includes(index)
+                  ? tile
+                  : ""}
+              </div>
+            ))}
           </div>
-        ))}
+          <div className="flex gap-6">
+            {numberOfPlayers === 1 ? (
+              <>
+                <div className="flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] bg-light-steel-blue py-[0.625rem]">
+                  <span className="text-[0.938rem] font-bold leading-[1.188rem] tracking-normal text-steel-blue">
+                    Time
+                  </span>
+                  <span className="text-2xl font-bold leading-[1.875rem] tracking-normal text-dark-slate-blue">
+                    {formatElapsedTime(elapsedTime)}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] bg-light-steel-blue py-[0.625rem]">
+                  <span className="text-[0.938rem] font-bold leading-[1.188rem] tracking-normal text-steel-blue">
+                    Moves
+                  </span>
+                  <span className="text-2xl font-bold leading-[1.875rem] tracking-normal text-dark-slate-blue">
+                    {moves}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>Turn: Player {turn + 1}</div>
+                <div>
+                  Scores:{" "}
+                  {scores
+                    .map((score, index) => `Player ${index + 1}: ${score}`)
+                    .join(", ")}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
