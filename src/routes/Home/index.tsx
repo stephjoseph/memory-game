@@ -41,7 +41,7 @@ const Home: React.FC = () => {
           memory
         </h1>
       </div>
-      <form className="flex w-full flex-col gap-8 rounded-[10px] bg-snow-white p-6">
+      <form className="flex w-full max-w-[327px] flex-col gap-8 rounded-[10px] bg-snow-white p-6 ">
         <div className="flex w-full flex-col gap-6">
           <div className="flex flex-col gap-3">
             <h2 className="text-[0.938rem] font-bold leading-[1.188rem] tracking-normal text-steel-blue">
