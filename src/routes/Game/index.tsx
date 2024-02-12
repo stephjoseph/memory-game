@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useGameSettings } from "../../hooks/useGameSettings";
+import { Link } from "react-router-dom";
 
 const Game: React.FC = () => {
   const { numberOfPlayers, theme, gridSize } = useGameSettings();
@@ -14,22 +15,7 @@ const Game: React.FC = () => {
   const [moves, setMoves] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-
-  useEffect(() => {
-    const generateTiles = () => {
-      const totalTiles = gridSize * gridSize;
-      const tileValues =
-        theme === "numbers"
-          ? Array.from(Array(totalTiles / 2).keys())
-          : ["A", "B", "C", "D", "E", "F", "G", "H"].slice(0, totalTiles / 2);
-      const shuffledTiles = [...tileValues, ...tileValues].sort(
-        () => Math.random() - 0.5,
-      );
-      setTiles(shuffledTiles);
-    };
-
-    generateTiles();
-  }, [gridSize, theme]);
+  const [showGameOverModal, setShowGameOverModal] = useState<boolean>(false);
 
   const handleTileClick = (index: number) => {
     if (flippedTiles.length === 2 || matchedTiles.includes(index)) return;
@@ -65,12 +51,45 @@ const Game: React.FC = () => {
     }
   };
 
+  const generateTiles = () => {
+    const totalTiles = gridSize * gridSize;
+    const tileValues =
+      theme === "numbers"
+        ? Array.from(Array(totalTiles / 2).keys())
+        : ["A", "B", "C", "D", "E", "F", "G", "H"].slice(0, totalTiles / 2);
+    const shuffledTiles = [...tileValues, ...tileValues].sort(
+      () => Math.random() - 0.5,
+    );
+    setTiles(shuffledTiles);
+  };
+
+  const restartGame = () => {
+    setTiles([]);
+    setFlippedTiles([]);
+    setMatchedTiles([]);
+    setJustMatchedTiles([]);
+    setTurn(0);
+    setScores(Array(numberOfPlayers).fill(0));
+    setMoves(0);
+    setStartTime(0);
+    setElapsedTime(0);
+    setShowGameOverModal(false);
+
+    // Generate new tiles
+    generateTiles();
+  };
+
+  useEffect(() => {
+    generateTiles();
+  }, [gridSize, theme]);
+
   useEffect(() => {
     if (numberOfPlayers === 1) {
       if (matchedTiles.length === gridSize * gridSize) {
         const endTime = new Date().getTime();
         const totalTimeInSeconds = Math.floor((endTime - startTime) / 1000);
         setElapsedTime(totalTimeInSeconds);
+        setShowGameOverModal(true);
       }
     }
   }, [matchedTiles, gridSize, numberOfPlayers, startTime]);
@@ -171,6 +190,65 @@ const Game: React.FC = () => {
                 </div>
               </>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Game Over Modal */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 top-0 flex h-screen w-full min-w-[327px] items-center bg-black/50 px-6 transition-opacity duration-300 ${showGameOverModal ? "pointer-events-auto visible opacity-100" : "pointer-events-none invisible opacity-0"}`}
+      >
+        <div className="mx-auto flex w-full max-w-[327px] flex-col gap-6 rounded-[10px] bg-snow-white px-6 pb-6 pt-8">
+          <div className="flex w-full flex-col gap-6">
+            <div className="flex flex-col items-center gap-[0.563rem]">
+              <h2 className="text-2xl font-bold leading-[1.875rem] tracking-normal text-midnight-blue">
+                {numberOfPlayers === 1 ? "You did it!" : ""}
+              </h2>
+              <p className="text-[0.875rem] font-bold leading-[1.063rem] tracking-normal text-steel-blue">
+                Game over!{" "}
+                {numberOfPlayers === 1
+                  ? "Here’s how you got on…"
+                  : "Here are the results…"}
+              </p>
+            </div>
+            <div className="flex w-full flex-col gap-2">
+              {numberOfPlayers === 1 ? (
+                <>
+                  <div className="flex items-center justify-between rounded-[5px] bg-[#DFE7EC] px-4 py-3">
+                    <span className="text-[0.813rem] font-bold leading-4 tracking-normal text-steel-blue">
+                      Time Elapsed
+                    </span>
+                    <span className="text-darks-slate-blue text-xl font-bold leading-[1.563rem] tracking-normal">
+                      {formatElapsedTime(elapsedTime)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-[5px] bg-[#DFE7EC] px-4 py-3">
+                    <span className="text-[0.813rem] font-bold leading-4 tracking-normal text-steel-blue">
+                      Moves Taken
+                    </span>
+                    <span className="text-darks-slate-blue text-xl font-bold leading-[1.563rem] tracking-normal">
+                      {moves}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+          <div className="flex w-full flex-col gap-4">
+            <button
+              className="w-full rounded-[26px] bg-orange-yellow py-3 text-center text-lg font-bold leading-[1.375rem] tracking-normal text-snow-white"
+              onClick={restartGame}
+            >
+              Restart
+            </button>
+            <Link
+              className="w-full rounded-[26px] bg-[#DFE7EC] py-3 text-center text-lg font-bold leading-[1.375rem] tracking-normal text-dark-slate-blue"
+              to="/"
+            >
+              Setup New Game
+            </Link>
           </div>
         </div>
       </div>
