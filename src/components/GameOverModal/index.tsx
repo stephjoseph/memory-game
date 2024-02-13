@@ -45,7 +45,7 @@ const GameOverModal = ({
   });
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 top-0 flex h-screen w-full min-w-[327px] items-center bg-black/50 px-6 transition-opacity duration-300 ${showGameOverModal ? "pointer-events-auto visible opacity-100" : "pointer-events-none invisible opacity-0"}`}
+      className={`fixed bottom-0 left-0 right-0 top-0 flex h-screen w-full min-w-[327px] items-center bg-black/50 px-6 transition-opacity duration-300 ${showGameOverModal ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
     >
       <div className="mx-auto flex w-full max-w-[327px] flex-col gap-6 rounded-[10px] bg-snow-white px-6 pb-6 pt-8">
         <div className="flex w-full flex-col gap-6">

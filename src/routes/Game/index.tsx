@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useGameSettings } from "../../hooks/useGameSettings";
 import GameOverModal from "../../components/GameOverModal";
+import MenuModal from "../../components/MenuModal";
 
 const Game: React.FC = () => {
   const { numberOfPlayers, theme, gridSize } = useGameSettings();
@@ -16,6 +17,7 @@ const Game: React.FC = () => {
   const [startTime, setStartTime] = useState<number>(0);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [showGameOverModal, setShowGameOverModal] = useState<boolean>(false);
+  const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
 
   const handleTileClick = (index: number) => {
     if (flippedTiles.length === 2 || matchedTiles.includes(index)) return;
@@ -73,6 +75,7 @@ const Game: React.FC = () => {
     setStartTime(0);
     setElapsedTime(0);
     setShowGameOverModal(false);
+    setShowMenuModal(false);
 
     // retain turn if winner
     if (matchedTiles.length === gridSize * gridSize) {
@@ -81,8 +84,20 @@ const Game: React.FC = () => {
       setTurn(0);
     }
 
+    document.body.classList.remove("overflow-y-hidden");
+
     // Generate new tiles
     generateTiles();
+  };
+
+  const toggleMenu = () => {
+    setShowMenuModal((prevShowMenuModal) => !prevShowMenuModal);
+
+    if (!showMenuModal) {
+      document.body.classList.add("overflow-y-hidden");
+    } else {
+      document.body.classList.remove("overflow-y-hidden");
+    }
   };
 
   useEffect(() => {
@@ -99,6 +114,8 @@ const Game: React.FC = () => {
       } else {
         setShowGameOverModal(true);
       }
+
+      document.body.classList.add("overflow-y-hidden");
     }
   }, [matchedTiles, gridSize, numberOfPlayers, startTime]);
 
@@ -128,7 +145,10 @@ const Game: React.FC = () => {
           <h1 className="text-[1.5rem] font-bold lowercase leading-[1.875rem] tracking-normal text-midnight-blue">
             memory
           </h1>
-          <button className="flex h-10 w-[4.875rem] items-center justify-center rounded-[26px] bg-orange-yellow text-center text-base font-bold leading-5 tracking-normal text-snow-white">
+          <button
+            className="flex h-10 w-[4.875rem] items-center justify-center rounded-[26px] bg-orange-yellow text-center text-base font-bold leading-5 tracking-normal text-snow-white"
+            onClick={toggleMenu}
+          >
             Menu
           </button>
         </div>
@@ -211,6 +231,13 @@ const Game: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Menu Modal */}
+      <MenuModal
+        showMenuModal={showMenuModal}
+        toggleMenu={toggleMenu}
+        restartGame={restartGame}
+      />
 
       {/* Game Over Modal */}
       <GameOverModal
