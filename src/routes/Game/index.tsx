@@ -68,12 +68,19 @@ const Game: React.FC = () => {
     setFlippedTiles([]);
     setMatchedTiles([]);
     setJustMatchedTiles([]);
-    setTurn(0);
+
     setScores(Array(numberOfPlayers).fill(0));
     setMoves(0);
     setStartTime(0);
     setElapsedTime(0);
     setShowGameOverModal(false);
+
+    // retain turn if winner
+    if (matchedTiles.length === gridSize * gridSize) {
+      setTurn((prevTurn) => prevTurn);
+    } else {
+      setTurn(0);
+    }
 
     // Generate new tiles
     generateTiles();
