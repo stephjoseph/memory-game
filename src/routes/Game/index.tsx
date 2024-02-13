@@ -68,12 +68,19 @@ const Game: React.FC = () => {
     setFlippedTiles([]);
     setMatchedTiles([]);
     setJustMatchedTiles([]);
-    setTurn(0);
+
     setScores(Array(numberOfPlayers).fill(0));
     setMoves(0);
     setStartTime(0);
     setElapsedTime(0);
     setShowGameOverModal(false);
+
+    // retain turn if winner
+    if (matchedTiles.length === gridSize * gridSize) {
+      setTurn((prevTurn) => prevTurn);
+    } else {
+      setTurn(0);
+    }
 
     // Generate new tiles
     generateTiles();
@@ -84,11 +91,13 @@ const Game: React.FC = () => {
   }, [gridSize, theme]);
 
   useEffect(() => {
-    if (numberOfPlayers === 1) {
-      if (matchedTiles.length === gridSize * gridSize) {
+    if (matchedTiles.length === gridSize * gridSize) {
+      if (numberOfPlayers === 1) {
         const endTime = new Date().getTime();
         const totalTimeInSeconds = Math.floor((endTime - startTime) / 1000);
         setElapsedTime(totalTimeInSeconds);
+        setShowGameOverModal(true);
+      } else {
         setShowGameOverModal(true);
       }
     }
@@ -112,6 +121,33 @@ const Game: React.FC = () => {
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
+
+  const winners: number[] = scores.reduce((acc: number[], score, index) => {
+    if (score === Math.max(...scores)) {
+      acc.push(index + 1); // Adding 1 to index since players are indexed from 1
+    }
+    return acc;
+  }, []);
+
+  const sortedPlayers = scores.map((score, index) => ({
+    index: index + 1,
+    score,
+  }));
+  sortedPlayers.sort((a, b) => {
+    // Check if one of the players is a winner
+    const aIsWinner = winners.includes(a.index);
+    const bIsWinner = winners.includes(b.index);
+
+    // If one player is a winner and the other is not, prioritize the winner
+    if (aIsWinner && !bIsWinner) {
+      return -1;
+    } else if (!aIsWinner && bIsWinner) {
+      return 1;
+    } else {
+      // If both players are winners or both are not winners, sort by score
+      return b.score - a.score;
+    }
+  });
 
   return (
     <>
@@ -181,13 +217,23 @@ const Game: React.FC = () => {
               </>
             ) : (
               <>
-                <div>Turn: Player {turn + 1}</div>
-                <div>
-                  Scores:{" "}
-                  {scores
-                    .map((score, index) => `Player ${index + 1}: ${score}`)
-                    .join(", ")}
-                </div>
+                {scores.map((score, index) => (
+                  <div
+                    className={`relative flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] py-[0.625rem] transition-colors duration-300 ${index + 1 === turn + 1 ? "bg-orange-yellow before:absolute before:-top-2 before:border-b-8 before:border-l-8 before:border-r-8 before:border-b-orange-yellow before:border-l-transparent before:border-r-transparent" : "bg-light-steel-blue"}`}
+                    key={index}
+                  >
+                    <span
+                      className={`text-[0.938rem] font-bold leading-[1.188rem] tracking-normal ${index + 1 === turn + 1 ? "text-snow-white" : "text-steel-blue"}`}
+                    >
+                      P{index + 1}
+                    </span>
+                    <span
+                      className={`text-2xl font-bold leading-[1.875rem] tracking-normal  ${index + 1 === turn + 1 ? "text-snow-white" : "text-dark-slate-blue"}`}
+                    >
+                      {score}
+                    </span>
+                  </div>
+                ))}
               </>
             )}
           </div>
@@ -202,7 +248,11 @@ const Game: React.FC = () => {
           <div className="flex w-full flex-col gap-6">
             <div className="flex flex-col items-center gap-[0.563rem]">
               <h2 className="text-2xl font-bold leading-[1.875rem] tracking-normal text-midnight-blue">
-                {numberOfPlayers === 1 ? "You did it!" : ""}
+                {numberOfPlayers === 1
+                  ? "You did it!"
+                  : winners.length === 1
+                    ? `Player ${winners[0]} wins!`
+                    : "It's a tie!"}
               </h2>
               <p className="text-[0.875rem] font-bold leading-[1.063rem] tracking-normal text-steel-blue">
                 Game over!{" "}
@@ -232,7 +282,21 @@ const Game: React.FC = () => {
                   </div>
                 </>
               ) : (
-                ""
+                <>
+                  {sortedPlayers.map((player) => (
+                    <div
+                      className={`flex items-center justify-between rounded-[5px] px-4 py-3 ${winners.includes(player.index) ? "bg-midnight-blue text-snow-white" : "bg-[#DFE7EC] text-steel-blue"}`}
+                      key={player.index}
+                    >
+                      <span className="text-[0.813rem] font-bold leading-4 tracking-normal">
+                        Player {player.index}
+                      </span>
+                      <span className="text-xl font-bold leading-[1.563rem] tracking-normal">
+                        {player.score}
+                      </span>
+                    </div>
+                  ))}
+                </>
               )}
             </div>
           </div>
