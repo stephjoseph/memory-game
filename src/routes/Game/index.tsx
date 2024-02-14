@@ -2,10 +2,45 @@ import React, { useState, useEffect } from "react";
 import { useGameSettings } from "../../hooks/useGameSettings";
 import GameOverModal from "../../components/GameOverModal";
 import MenuModal from "../../components/MenuModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAnchor,
+  faCar,
+  faCat,
+  faDog,
+  faPlane,
+  faShip,
+  faHeart,
+  faCoffee,
+  faFish,
+  faBolt,
+  faDice,
+  faGlobe,
+  faLeaf,
+  faSun,
+  faMoon,
+  faStar,
+  faSmile,
+  faTree,
+  faAppleWhole,
+  faBomb,
+  faChessPawn,
+  faGem,
+  faHourglass,
+  faIceCream,
+  faKey,
+  faLemon,
+  faMusic,
+  faPaw,
+  faRocket,
+  faUmbrella,
+  faWheelchair,
+  faYinYang,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Game: React.FC = () => {
   const { numberOfPlayers, theme, gridSize } = useGameSettings();
-  const [tiles, setTiles] = useState<(number | string)[]>([]);
+  const [tiles, setTiles] = useState<(JSX.Element | number)[]>([]);
   const [flippedTiles, setFlippedTiles] = useState<number[]>([]);
   const [matchedTiles, setMatchedTiles] = useState<number[]>([]);
   const [justMatchedTiles, setJustMatchedTiles] = useState<number[]>([]);
@@ -19,8 +54,47 @@ const Game: React.FC = () => {
   const [showGameOverModal, setShowGameOverModal] = useState<boolean>(false);
   const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
 
+  // Font Awesome icons
+  const icons = [
+    faAnchor,
+    faCar,
+    faCat,
+    faDog,
+    faPlane,
+    faShip,
+    faHeart,
+    faCoffee,
+    faFish,
+    faBolt,
+    faDice,
+    faGlobe,
+    faLeaf,
+    faSun,
+    faMoon,
+    faStar,
+    faSmile,
+    faTree,
+    faAppleWhole,
+    faBomb,
+    faChessPawn,
+    faGem,
+    faHourglass,
+    faIceCream,
+    faKey,
+    faLemon,
+    faMusic,
+    faPaw,
+    faRocket,
+    faUmbrella,
+    faWheelchair,
+    faYinYang,
+  ];
+
   const handleTileClick = (index: number) => {
-    if (flippedTiles.length === 2 || matchedTiles.includes(index)) return;
+    // Ignore the click event if the clicked tile is already flipped
+    if (flippedTiles.includes(index) || matchedTiles.includes(index)) return;
+
+    if (flippedTiles.length === 2) return;
 
     setFlippedTiles([...flippedTiles, index]);
 
@@ -55,11 +129,12 @@ const Game: React.FC = () => {
 
   const generateTiles = () => {
     const totalTiles = gridSize * gridSize;
-    const tileValues =
-      theme === "numbers"
-        ? Array.from(Array(totalTiles / 2).keys())
-        : ["A", "B", "C", "D", "E", "F", "G", "H"].slice(0, totalTiles / 2);
-    const shuffledTiles = [...tileValues, ...tileValues].sort(
+    const iconValues = icons
+      .slice(0, totalTiles / 2)
+      .map((icon, index) => <FontAwesomeIcon icon={icon} key={index} />);
+    const numberValues = Array.from(Array(totalTiles / 2).keys());
+    const values = theme === "numbers" ? numberValues : iconValues;
+    const shuffledTiles = [...values, ...values].sort(
       () => Math.random() - 0.5,
     );
     setTiles(shuffledTiles);
