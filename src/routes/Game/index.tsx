@@ -39,14 +39,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Game: React.FC = () => {
-  const {
-    numberOfPlayers,
-    theme,
-    gridSize,
-    updateNumberOfPlayers,
-    updateTheme,
-    updateGridSize,
-  } = useGameSettings();
+  const { numberOfPlayers, theme, gridSize } = useGameSettings();
   const [tiles, setTiles] = useState<(JSX.Element | number)[]>([]);
   const [flippedTiles, setFlippedTiles] = useState<number[]>([]);
   const [matchedTiles, setMatchedTiles] = useState<number[]>([]);
@@ -213,35 +206,6 @@ const Game: React.FC = () => {
 
     return () => clearInterval(timer);
   }, [elapsedTime, startTime, gridSize]);
-
-  useEffect(() => {
-    // Save settings to local storage whenever the settings change
-    const saveSettingsToLocal = () => {
-      const settings = {
-        numberOfPlayers,
-        theme,
-        gridSize,
-        // Add other settings as needed...
-      };
-      localStorage.setItem("gameSettings", JSON.stringify(settings));
-    };
-
-    saveSettingsToLocal(); // Call the saving function
-    console.log("Saved settings:", localStorage.getItem("gameSettings"));
-  }, [numberOfPlayers, theme, gridSize]);
-
-  // Initialize game settings on component mount
-  useEffect(() => {
-    const storedSettings = localStorage.getItem("gameSettings");
-    if (storedSettings) {
-      const parsedSettings = JSON.parse(storedSettings);
-      // Update game settings with stored values
-      console.log("Parsed settings:", parsedSettings);
-      updateNumberOfPlayers(parsedSettings.numberOfPlayers);
-      updateTheme(parsedSettings.theme);
-      updateGridSize(parsedSettings.gridSize);
-    }
-  }, []);
 
   const formatElapsedTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
