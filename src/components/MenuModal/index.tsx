@@ -13,7 +13,7 @@ const MenuModal = ({
 }: MenuModalProps) => {
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 top-0 flex h-screen w-full min-w-[327px] items-center bg-black/50 px-6 transition-opacity duration-300 ${
+      className={`fixed bottom-0 left-0 right-0 top-0 flex h-screen w-full min-w-[327px] items-center bg-black/50 px-6 transition-opacity duration-300 md:hidden ${
         showMenuModal
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0"
