@@ -231,7 +231,7 @@ const Game: React.FC = () => {
   return (
     <>
       <div
-        className={`mx-auto flex w-full min-w-[375px] max-w-[375px] flex-col items-center gap-20 p-6 md:min-w-[768px] md:max-w-[768px]  md:px-10 md:py-9 ${gridSize === 4 ? "md:gap-[9.813rem]" : gridSize === 6 ? "md:gap-[7.5rem]" : ""}`}
+        className={`mx-auto flex w-full min-w-[375px] max-w-[375px] flex-col items-center gap-20 p-6 md:min-w-[768px] md:max-w-[768px] md:px-10 md:py-9 xl:min-w-[1280px] xl:max-w-[1440px] xl:px-[10.313rem] xl:py-16  ${gridSize === 4 ? "md:gap-[9.813rem] xl:gap-28" : gridSize === 6 ? "md:gap-[7.5rem] xl:gap-24" : ""}`}
       >
         <div className="flex w-full items-center justify-between">
           <h1 className="text-[1.5rem] font-bold lowercase leading-[1.875rem] tracking-normal text-midnight-blue md:text-[2.5rem] md:leading-[3.125rem]">
@@ -259,7 +259,7 @@ const Game: React.FC = () => {
           </div>
         </div>
         <div
-          className={`flex h-[500px] w-full min-w-[327px] flex-col items-center justify-between md:min-w-[689px] ${gridSize === 4 ? "md:h-[730px]" : gridSize === 6 ? "md:h-[776px]" : ""}`}
+          className={`flex h-[500px] w-full min-w-[327px] flex-col items-center justify-between md:min-w-[689px] ${gridSize === 4 ? "md:h-[730px]" : gridSize === 6 ? "md:h-[776px] xl:h-[746px]" : ""}`}
         >
           <div
             className={`${
@@ -321,22 +321,29 @@ const Game: React.FC = () => {
             ) : (
               <>
                 {scores.map((score, index) => (
-                  <div
-                    className={`relative flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] py-[0.625rem] transition-colors duration-300 md:items-start md:gap-[0.313rem] md:rounded-[10px] md:px-4 md:py-3 ${index + 1 === turn + 1 ? "bg-orange-yellow before:absolute before:-top-2 before:border-b-8 before:border-l-8 before:border-r-8 before:border-b-orange-yellow before:border-l-transparent before:border-r-transparent md:before:-top-3 md:before:left-[calc(50%-6px)] md:before:border-b-[12px] md:before:border-l-[12px] md:before:border-r-[12px]" : "bg-light-steel-blue"}`}
-                    key={index}
-                  >
-                    <span
-                      className={`text-[0.938rem] font-bold leading-[1.188rem] tracking-normal ${index + 1 === turn + 1 ? "text-snow-white" : "text-steel-blue"}`}
+                  <div className="relative flex flex-1 flex-col items-center">
+                    <div
+                      className={`flex w-full flex-col items-center gap-[0.125rem] rounded-[5px] py-[0.625rem] transition-colors duration-300 md:items-start md:gap-[0.313rem] md:rounded-[10px] md:px-4 md:py-3 xl:flex-row xl:items-center xl:justify-between xl:px-5 xl:py-4 ${index + 1 === turn + 1 ? "bg-orange-yellow before:absolute before:-top-2 before:border-b-8 before:border-l-8 before:border-r-8 before:border-b-orange-yellow before:border-l-transparent before:border-r-transparent md:before:-top-3 md:before:left-[calc(50%-6px)] md:before:border-b-[12px] md:before:border-l-[12px] md:before:border-r-[12px] xl:before:-top-5 xl:before:left-[calc(50%-10px)] xl:before:border-b-[20px] xl:before:border-l-[20px] xl:before:border-r-[20px]" : "bg-light-steel-blue"}`}
+                      key={index}
                     >
-                      {windowWidth >= 768
-                        ? `Player ${index + 1}`
-                        : `P${index + 1}`}
-                    </span>
-                    <span
-                      className={`text-2xl font-bold leading-[1.875rem] tracking-normal  ${index + 1 === turn + 1 ? "text-snow-white" : "text-dark-slate-blue"}`}
-                    >
-                      {score}
-                    </span>
+                      <span
+                        className={`text-[0.938rem] font-bold leading-[1.188rem] tracking-normal xl:text-lg xl:leading-[1.375rem] ${index + 1 === turn + 1 ? "text-snow-white" : "text-steel-blue"}`}
+                      >
+                        {windowWidth >= 768
+                          ? `Player ${index + 1}`
+                          : `P${index + 1}`}
+                      </span>
+                      <span
+                        className={`text-2xl font-bold leading-[1.875rem] tracking-normal xl:text-[2rem] xl:leading-10 ${index + 1 === turn + 1 ? "text-snow-white" : "text-dark-slate-blue"}`}
+                      >
+                        {score}
+                      </span>
+                    </div>
+                    {index + 1 === turn + 1 && (
+                      <span className="absolute -bottom-8 hidden text-[0.813rem] font-bold uppercase leading-4 tracking-[5px] text-midnight-blue xl:block">
+                        Current Turn
+                      </span>
+                    )}
                   </div>
                 ))}
               </>
