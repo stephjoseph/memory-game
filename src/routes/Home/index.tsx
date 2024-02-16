@@ -48,7 +48,7 @@ const Home: React.FC = () => {
               Select Theme
             </h2>
             <div className="flex w-full items-center gap-3 md:gap-[1.875rem]">
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="theme"
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
                 />
                 <span>Numbers</span>
               </label>
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="theme"
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
               Number of Players
             </h2>
             <div className="flex w-full items-center gap-3 md:gap-[1.375rem]">
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="numberOfPlayers"
@@ -88,7 +88,7 @@ const Home: React.FC = () => {
                 />
                 <span>1</span>
               </label>
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="numberOfPlayers"
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
                 />
                 <span>2</span>
               </label>
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="numberOfPlayers"
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
                 />
                 <span>3</span>
               </label>
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="numberOfPlayers"
@@ -128,7 +128,7 @@ const Home: React.FC = () => {
               Grid Size
             </h2>
             <div className="flex w-full items-center gap-3">
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="gridSize"
@@ -139,7 +139,7 @@ const Home: React.FC = () => {
                 />
                 <span>4x4</span>
               </label>
-              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
+              <label className="flex-1 cursor-pointer rounded-[26px] bg-light-steel-blue py-[0.625rem] text-center text-base font-bold leading-5 tracking-normal text-snow-white transition-colors duration-300 hover:bg-sky-blue active:bg-sky-blue has-[:checked]:bg-dark-slate-blue md:text-[1.625rem] md:leading-8">
                 <input
                   type="radio"
                   name="gridSize"
@@ -155,7 +155,7 @@ const Home: React.FC = () => {
         </div>
 
         <button
-          className="w-full rounded-[26px] bg-orange-yellow py-3 text-lg font-bold leading-[1.375rem] tracking-normal text-white md:rounded-[35px] md:py-4 md:text-[2rem] md:leading-10"
+          className="w-full rounded-[26px] bg-orange-yellow py-3 text-lg font-bold leading-[1.375rem] tracking-normal text-white hover:bg-[#FFB84A] active:bg-[#FFB84A] md:rounded-[35px] md:py-4 md:text-[2rem] md:leading-10"
           onClick={startGame}
         >
           Start Game

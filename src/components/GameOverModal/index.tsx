@@ -108,13 +108,13 @@ const GameOverModal = ({
         </div>
         <div className="flex w-full flex-col gap-4 md:flex-row md:gap-[0.875rem]">
           <button
-            className="w-full rounded-[26px] bg-orange-yellow py-3 text-center text-lg font-bold leading-[1.375rem] tracking-normal text-snow-white md:text-[1.25rem] md:leading-[1.563rem]"
+            className="w-full rounded-[26px] bg-orange-yellow py-3 text-center text-lg font-bold leading-[1.375rem] tracking-normal text-snow-white transition-colors duration-300 hover:bg-[#FFB84A] active:bg-[#FFB84A] md:text-[1.25rem] md:leading-[1.563rem]"
             onClick={() => restartGame()}
           >
             Restart
           </button>
           <Link
-            className="w-full rounded-[26px] bg-[#DFE7EC] py-3 text-center text-lg font-bold leading-[1.375rem] tracking-normal text-dark-slate-blue md:text-[1.25rem] md:leading-[1.563rem]"
+            className="w-full rounded-[26px] bg-[#DFE7EC] py-3 text-center text-lg font-bold leading-[1.375rem] tracking-normal text-dark-slate-blue transition-colors duration-300 hover:bg-sky-blue hover:text-snow-white active:bg-sky-blue active:text-snow-white md:text-[1.25rem] md:leading-[1.563rem]"
             to="/"
           >
             Setup New Game
