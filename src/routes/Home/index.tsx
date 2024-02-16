@@ -35,7 +35,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full min-h-[667px] w-full flex-col items-center gap-11 bg-midnight-blue px-6 py-20 md:min-h-[1024px] md:gap-[4.875rem] md:px-14 md:py-[10.563rem]">
+    <div className="flex h-full min-h-[667px] w-full flex-col items-center justify-center gap-11 bg-midnight-blue px-6 py-20 md:min-h-[1024px] md:gap-[4.875rem] md:px-14 md:py-[10.563rem]">
       <div>
         <h1 className="text-[2rem] font-bold lowercase leading-10 tracking-normal text-snow-white md:text-[2.5rem] md:leading-[3.125rem]">
           memory
