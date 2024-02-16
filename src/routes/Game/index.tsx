@@ -301,7 +301,7 @@ const Game: React.FC = () => {
           >
             {numberOfPlayers === 1 ? (
               <>
-                <div className="flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] bg-light-steel-blue py-[0.625rem] md:flex-row md:justify-between md:rounded-[10px] md:px-6 md:py-4">
+                <div className="flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] bg-[#DFE7EC] py-[0.625rem] md:flex-row md:justify-between md:rounded-[10px] md:px-6 md:py-4">
                   <span className="text-[0.938rem] font-bold leading-[1.188rem] tracking-normal text-steel-blue md:text-lg md:leading-[1.375rem]">
                     Time
                   </span>
@@ -309,7 +309,7 @@ const Game: React.FC = () => {
                     {formatElapsedTime(elapsedTime)}
                   </span>
                 </div>
-                <div className="flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] bg-light-steel-blue py-[0.625rem] md:flex-row md:justify-between md:px-6 md:py-4">
+                <div className="flex flex-1 flex-col items-center gap-[0.125rem] rounded-[5px] bg-[#DFE7EC] py-[0.625rem] md:flex-row md:justify-between md:px-6 md:py-4">
                   <span className="text-[0.938rem] font-bold leading-[1.188rem] tracking-normal text-steel-blue md:text-lg md:leading-[1.375rem]">
                     Moves
                   </span>
@@ -323,7 +323,7 @@ const Game: React.FC = () => {
                 {scores.map((score, index) => (
                   <div className="relative flex flex-1 flex-col items-center">
                     <div
-                      className={`flex w-full flex-col items-center gap-[0.125rem] rounded-[5px] py-[0.625rem] transition-colors duration-300 md:items-start md:gap-[0.313rem] md:rounded-[10px] md:px-4 md:py-3 xl:flex-row xl:items-center xl:justify-between xl:px-5 xl:py-4 ${index + 1 === turn + 1 ? "bg-orange-yellow before:absolute before:-top-2 before:border-b-8 before:border-l-8 before:border-r-8 before:border-b-orange-yellow before:border-l-transparent before:border-r-transparent md:before:-top-3 md:before:left-[calc(50%-6px)] md:before:border-b-[12px] md:before:border-l-[12px] md:before:border-r-[12px] xl:before:-top-5 xl:before:left-[calc(50%-10px)] xl:before:border-b-[20px] xl:before:border-l-[20px] xl:before:border-r-[20px]" : "bg-light-steel-blue"}`}
+                      className={`flex w-full flex-col items-center gap-[0.125rem] rounded-[5px] py-[0.625rem] transition-colors duration-300 md:items-start md:gap-[0.313rem] md:rounded-[10px] md:px-4 md:py-3 xl:flex-row xl:items-center xl:justify-between xl:px-5 xl:py-4 ${index + 1 === turn + 1 ? "bg-orange-yellow before:absolute before:-top-2 before:border-b-8 before:border-l-8 before:border-r-8 before:border-b-orange-yellow before:border-l-transparent before:border-r-transparent md:before:-top-3 md:before:left-[calc(50%-6px)] md:before:border-b-[12px] md:before:border-l-[12px] md:before:border-r-[12px] xl:before:-top-5 xl:before:left-[calc(50%-10px)] xl:before:border-b-[20px] xl:before:border-l-[20px] xl:before:border-r-[20px]" : "bg-[#DFE7EC]"}`}
                       key={index}
                     >
                       <span
