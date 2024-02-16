@@ -231,7 +231,7 @@ const Game: React.FC = () => {
   return (
     <>
       <div
-        className={`mx-auto flex w-full min-w-[375px] max-w-[375px] flex-col items-center gap-20 p-6 md:min-w-[768px] md:max-w-[768px] md:px-10 md:py-9 xl:min-w-[1280px] xl:max-w-[1440px] xl:px-[10.313rem] xl:py-16  ${gridSize === 4 ? "md:gap-[9.813rem] xl:gap-28" : gridSize === 6 ? "md:gap-[7.5rem] xl:gap-24" : ""}`}
+        className={`mx-auto flex min-h-[667px] w-full min-w-[375px] max-w-[375px] flex-col items-center justify-center gap-20 overflow-auto p-6 md:min-h-[1024px] md:min-w-[768px] md:max-w-[768px] md:px-10 md:py-9 xl:min-w-[1280px] xl:max-w-[1440px] xl:px-[10.313rem] xl:py-16  ${gridSize === 4 ? "md:gap-[9.813rem] xl:gap-28" : gridSize === 6 ? "md:gap-[7.5rem] xl:gap-24" : ""}`}
       >
         <div className="flex w-full items-center justify-between">
           <h1 className="text-[1.5rem] font-bold lowercase leading-[1.875rem] tracking-normal text-midnight-blue md:text-[2.5rem] md:leading-[3.125rem]">
@@ -245,14 +245,14 @@ const Game: React.FC = () => {
           </button>
           <div className="hidden items-center gap-4 md:flex">
             <button
-              className="flex h-[3.25rem] w-[7.938rem] items-center justify-center rounded-[26px] bg-orange-yellow text-center text-[1.25rem] font-bold leading-[1.563rem] tracking-normal text-snow-white"
+              className="flex h-[3.25rem] w-[7.938rem] items-center justify-center rounded-[26px] bg-orange-yellow text-center text-[1.25rem] font-bold leading-[1.563rem] tracking-normal text-snow-white transition-colors duration-300 hover:bg-[#FFB84A] active:bg-[#FFB84A]"
               onClick={() => restartGame()}
             >
               Restart
             </button>
             <Link
               to="/"
-              className="flex h-[3.25rem] w-[9.313rem] items-center justify-center rounded-[26px] bg-[#DFE7EC] text-center text-[1.25rem] font-bold leading-[1.563rem] tracking-normal text-dark-slate-blue"
+              className="flex h-[3.25rem] w-[9.313rem] items-center justify-center rounded-[26px] bg-[#DFE7EC] text-center text-[1.25rem] font-bold leading-[1.563rem] tracking-normal text-dark-slate-blue transition-colors duration-300 hover:bg-sky-blue hover:text-snow-white active:bg-sky-blue active:text-snow-white"
             >
               New Game
             </Link>
@@ -279,7 +279,7 @@ const Game: React.FC = () => {
                     : flippedTiles.includes(index) ||
                         matchedTiles.includes(index)
                       ? "bg-light-steel-blue"
-                      : "bg-dark-slate-blue"
+                      : "bg-dark-slate-blue hover:bg-sky-blue active:bg-sky-blue"
                 } ${
                   gridSize === 4
                     ? "h-[72px] w-[72px] text-[2.5rem] leading-[3.125rem] md:h-[118px] md:w-[118px] md:text-[3.5rem] md:leading-[4.313rem]"

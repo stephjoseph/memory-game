@@ -7,3 +7,7 @@
 body {
   @apply w-full min-w-[300px] font-sans;
 }
+
+#root {
+  @apply flex h-screen;
+}
